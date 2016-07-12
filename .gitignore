@@ -1,0 +1,10 @@
+*~
+*.o
+*.log
+*.lck
+*temp
+logs/
+*.log
+*.pid
+*.Log
+
