@@ -34,9 +34,9 @@ end
 
 M.init = function()
 	sock.init(ssid, pwd)
-	sock.conn_callback()
 	oled.init_oled(sda, scl, sla)
 	oled.boot_page()
+	sock.conn_callback()
 end
 
 return M

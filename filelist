@@ -1,7 +1,0 @@
-init.lua
-oled.lua
-sensor.lua
-config.lua
-dht11.lua
-sock.lua
-upload.lua

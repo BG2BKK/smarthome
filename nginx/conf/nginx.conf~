@@ -43,7 +43,8 @@ http {
         #access_log  logs/host.access.log  main;
 
         location / {
-            root   html;
+#            root   html;
+			root html/temp/AB_ADMIN/src;
             index  index.html index.htm;
         }
 

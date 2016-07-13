@@ -11,7 +11,7 @@ else
 	server_port = 80 
 end
 server_name = 'localhost'
-query_url   = '/dht11'
+query_url   = '/smart'
 
 mac = wifi.sta.getmac()
 chipid = node.chipid()
