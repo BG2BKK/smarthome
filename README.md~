@@ -44,4 +44,4 @@ sudo ../esptool/esptool.py --port /dev/ttyUSB0 --baud 230400 write_flash -fm dio
 	* http server: nginx
 		* conf/nginx.conf
 	* web app
-		* [nginx/luacode](nginx/luacode)
+		* nginx/luacode

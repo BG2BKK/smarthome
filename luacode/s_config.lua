@@ -4,7 +4,7 @@ pwd         = 'sh19901222'
 
 uart_debug = 1
 oled_debug = 1
-dev	= true
+dev	= nil
 
 if dev then
 	server_ip   = '192.168.2.163'
