@@ -1,11 +1,14 @@
 local router = require 'router.router'
 local smartmod = require 'smart'
+local adminmod = require 'admin'
 local smart = smartmod.new()
+local admin = adminmod.new()
 local r = router.new()
 
 r:match({
 	GET = {
-		["/hello/:name"] = function(params) ngx.print("hello, " .. params.name) end
+		["/hello/:name"] = function(params) ngx.print("hello, " .. params.name) end,
+		["/admin/set/:info"] = function(params) admin.set(params.info) end
 	},
 	POST = {
 		["/smart"] = function(params)
@@ -22,9 +25,7 @@ local ok, errmsg = r:execute (
 	{other_arg = 1}				-- into a single "params" table
 )
 
-if ok then
-	ngx.status = 200
-else
+if not ok then
 	ngx.status = 404
 	ngx.print("Not found!")
 	ngx.log(ngx.ERR, errmsg)

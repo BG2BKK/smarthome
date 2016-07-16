@@ -2,52 +2,60 @@ local moduleName = ...
 local M = {}
 _G[moduleName] = M
 
-M.upload = function()
-    if not ip then
-        http_log = "no network avaliable"
-		print(http_log)
-        return
-    end
+require("utils")
+require("sock")
+require("http")
 
-    local data = {}
-    data.temp   = temp
-    data.hum    = hum
-    data.chipid = chipid or ''
-    data.mac    = mac or ''
-    data.time   = tmr.time() or ''
-
-    local PostData = cjson.encode(data)
-
-	http_log = "Send to " .. server_ip .. ':' .. server_port
-	print(http_log)
-
-    conn=net.createConnection(net.TCP, 0) 
-    conn:connect(server_port, server_ip) 
-
-    conn:on("sent",function(conn)
-		http_log = 'Closing connection'
-		print(http_log)
-    end)
-
-    conn:on("disconnection", function(conn)
-		http_log = "Got disconnection..."
-		print(http_log)
-    end)
-
-    conn:on("receive", function(conn, payload) 
-		http_log = payload
-        print(payload) 
-    end)
-
-    conn:send(
-		'POST ' .. query_url .. " HTTP/1.0\r\n" ..
-		"Host: localhost\r\n" ..
-		"Accept: */*\r\n" ..
-		"Content-Length: ".. string.len(PostData) .. 
-		"\r\n\r\n" ..
-		PostData .. "\r\n\r\n"
-    )
+local upload_task = function(code, data)
 end
+
+local heartbeat_task = function(code, data)
+	if code == 200 then
+		log(data)
+		local resp = cjson.decode(data)
+		if resp then
+			user_input = resp.data or ''
+		end
+	end
+end
+
+
+local wrapper = function(f, data)
+    local postData = cjson.encode(data)
+--	sock.send(postData)
+	local queryurl = 'http://'..server_ip..':'..server_port..query_url
+	http.post(queryurl, nil, postData, function(code, data)
+										f(code, data)
+									   end)
+end
+
+M.heartbeat = function()
+
+    local data = {
+		['type']	= 'heartbeat',
+    	['chipid']	= chipid or '',
+    	['mac']		= mac or '',
+    	['time']	= tmr.time() or '',
+	}
+
+	wrapper(heartbeat_task, data)
+
+end
+
+
+M.upload = function()
+
+    local data = {
+	    temp   = temp,
+    	hum    = hum,
+    	chipid = chipid or '',
+    	mac    = mac or '',
+	   	time   = tmr.time() or '',
+	}
+
+    wrapper(upload_task, data)
+end
+
 
 
 return M

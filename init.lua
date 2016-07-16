@@ -1,15 +1,17 @@
 require("cjson")
-require("config")
+require("bit")
+
+require("h_config")
+require("s_config")
+require("utils")
+
 require("dht11")
+require("remote")
 require("sock")
 require("upload")
 require("oled")
-require("app")
 
-print('init.lua ver 1.2')
-print('MAC: ', mac)
-print('chip: ', chipid)
-print('flashid: ', flashid)
+require("app")
 
 app.init()
 app.run()

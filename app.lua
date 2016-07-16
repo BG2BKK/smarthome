@@ -2,39 +2,54 @@ local moduleName = ...
 local M = {}
 _G[moduleName] = M
 
-M.display = function()
-	tmr.alarm(oled_tmrid, oled_interval, 1, function() 
-		display[d_ip].data = ip or 'unavaliable'
-		display[d_temp].data = temp or ''
-		display[d_hum].data = hum or ''
-		display[d_upload].data = http_log or ''
-		oled.drawStrs(display)		
-	end)
+require"remote"
+M.display = function(switch)
+	if switch == true then
+		tmr.alarm(oled_tmrid, oled_interval, 1, function() 
+			display[d_ip].data = ip or 'unavaliable'
+			display[d_temp].data = temp or ''
+			display[d_hum].data = hum or ''
+			display[d_upload].data = http_log or ''
+			display[d_input].data = user_input or ''
+			oled.drawStrs(display)		
+		end)
+	elseif switch == false then
+		trm.stop(oled_tmrid)
+	end
 end
 
 M.startTran = function()
-    tmr.alarm(conn_tmrid, conn_interval, 1, function() 
-        upload.upload()
-    end)
+	tmr.alarm(conn_tmrid, conn_interval, 1, function() 
+	local time = tmr.time()
+	if bit.band(time, 10) == 10 then
+		upload.upload()
+	else
+		upload.heartbeat()
+	end
+	end)
 end
 
 M.getData = function()
-    tmr.alarm(dht11_tmrid, dht11_interval, 1, function()
-        dht11.init(dht11_pin)
-        temp = dht11.getTemp()
-        hum = dht11.getHumidity()
-    end)
+	tmr.alarm(dht11_tmrid, dht11_interval, 1, function()
+		dht11.read(dht11_pin)
+	end)
 end
 
 M.run = function()
-	app.display()
-	app.getData()
-	app.startTran()
+	M.display(true)
+	M.getData()
+	M.startTran()
 end
 
 M.init = function()
-	sock.init(ssid, pwd)
-	sock.conn_callback()
+	log('init.lua ver 1.2')
+	log('MAC: ', mac)
+	log('chip: ', chipid)
+	log('flashid: ', flashid)
+
+	remote.initwifi(ssid, pwd)
+	remote.conn_callback()
+	sock.initconn()
 	oled.init_oled(sda, scl, sla)
 	oled.boot_page()
 end
