@@ -37,3 +37,9 @@ display = {
 	{ x = 36, y = 48,data = ''		},
 }
 
+broad_t = '/smart:broad'
+lwt_t = '/smart:lwt:' 
+
+sub_t = '/sub:' .. mac .. ':' chipid
+pub_t = '/pub:' .. mac .. ':' chipid
+

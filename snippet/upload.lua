@@ -37,16 +37,28 @@ M.upload = function()
     conn:on("receive", function(conn, payload) 
 		http_log = payload
         print(payload) 
+		local i, j
+		local lastline 
+		while true do
+			i = string.find(payload, '\r\n', i+1)
+			print(payload:sub(i))
+		end
     end)
 
-    conn:send(
-		'POST ' .. query_url .. " HTTP/1.0\r\n" ..
+	conn:send(
+		'GET' .. query_url .. "HTTP/1.1\r\n" ..
 		"Host: localhost\r\n" ..
 		"Accept: */*\r\n" ..
-		"Content-Length: ".. string.len(PostData) .. 
-		"\r\n\r\n" ..
-		PostData .. "\r\n\r\n"
-    )
+		"\r\n\r\n" 
+	)
+--    conn:send(
+--		'POST ' .. query_url .. " HTTP/1.0\r\n" ..
+--		"Host: localhost\r\n" ..
+--		"Accept: */*\r\n" ..
+--		"Content-Length: ".. string.len(PostData) .. 
+--		"\r\n\r\n" ..
+--		PostData .. "\r\n\r\n"
+--    )
 end
 
 

@@ -1,5 +1,4 @@
 # nodemcu_smarthome
-# nodemcu_smarthome
 
 * firmware
 	* nodemcu-master-18-modules-2016-07-16-08-39-43-float.bin
@@ -45,3 +44,4 @@ sudo ../esptool/esptool.py --port /dev/ttyUSB0 --baud 230400 write_flash -fm dio
 		* conf/nginx.conf
 	* web app
 		* [nginx/luacode](nginx/luacode)
+

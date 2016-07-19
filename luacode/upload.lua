@@ -27,6 +27,9 @@ local wrapper = function(f, data)
 	http.post(queryurl, nil, postData, function(code, data)
 										f(code, data)
 									   end)
+    queryurl = nil
+    postData = nil
+    data = nil                                    
 end
 
 M.heartbeat = function()

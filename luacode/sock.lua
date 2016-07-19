@@ -28,12 +28,6 @@ M.send = function(data)
     conn:on("receive", function(conn, payload) 
 		http_log = payload
 		log(payload)
---		local i, j = string.find(payload, '\n')
---		local dat = string.sub(payload, j+1)
---			log(dat)
---		if dat then
---			user_input = dat or ''
---		end
     end)
 
 

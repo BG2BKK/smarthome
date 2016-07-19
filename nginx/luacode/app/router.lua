@@ -7,7 +7,7 @@ local r = router.new()
 
 r:match({
 	GET = {
-		["/hello/:name"] = function(params) ngx.print("hello, " .. params.name) end,
+		["/test/:name"] = function(params) ngx.say("hello, " .. params.name) end,
 		["/admin/set/:info"] = function(params) admin.set(params.info) end
 	},
 	POST = {
