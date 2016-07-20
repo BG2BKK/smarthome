@@ -9,7 +9,7 @@ dht11_tmrid     = 1
 oled_interval  = 1000  -- ms
 oled_tmrid     = 4
 
-conn_interval   = 3000 -- ms 
+conn_interval   = 30000 -- ms 
 conn_tmrid      = 6
 
 pm25_on_interval   = 5000

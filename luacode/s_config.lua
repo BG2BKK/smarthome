@@ -4,19 +4,21 @@ pwd         = 'sh19901222'
 
 uart_debug = 1
 oled_debug = 1
-dev	= nil
+dev	= 1
 
 if dev then
 	server_ip   = '192.168.2.163'
 	server_port = 8080 
 	server_name = 'localhost'
-	query_url   = '/smart'
+	path   = '/smart'
 else
 	server_ip   = '45.78.38.250'
 	server_port = 8080 
 	server_name = 'localhost'
-	query_url   = '/smart'
+	path   = '/smart'
 end
+
+query_url = 'http://'..server_ip..':'..server_port..path
 
 temp, hum = 0, 0
 http_log = ''
@@ -37,9 +39,14 @@ display = {
 	{ x = 36, y = 48,data = ''		},
 }
 
-broad_t = '/smart:broad'
-lwt_t = '/smart:lwt:' 
+hbeat_data = {
+	['type']	= 'heartbeat',
+	['chipid']	= chipid or '',
+	['mac']		= mac or '',
+}
 
-sub_t = '/sub:' .. mac .. ':' chipid
-pub_t = '/pub:' .. mac .. ':' chipid
+clientid = mac .. ':' .. chipid
+lwt_t = '/smart:lwt:' 
+sub_t = '/smart/sub/' .. mac .. ':' .. chipid .. '/#' 
+pub_t = '/smart/pub/' .. mac .. ':' .. chipid
 

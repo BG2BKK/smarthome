@@ -16,47 +16,23 @@ local heartbeat_task = function(code, data)
 		if resp then
 			user_input = resp.data or ''
 		end
+	else
+		log('heartbeat error', data)
 	end
-end
-
-
-local wrapper = function(f, data)
-    local postData = cjson.encode(data)
---	sock.send(postData)
-	local queryurl = 'http://'..server_ip..':'..server_port..query_url
-	http.post(queryurl, nil, postData, function(code, data)
-										f(code, data)
-									   end)
-    queryurl = nil
-    postData = nil
-    data = nil                                    
 end
 
 M.heartbeat = function()
 
-    local data = {
-		['type']	= 'heartbeat',
-    	['chipid']	= chipid or '',
-    	['mac']		= mac or '',
-    	['time']	= tmr.time() or '',
-	}
+	hbeat_data.time = tmr.time() or ''
 
-	wrapper(heartbeat_task, data)
+	local msg = cjson.encode(hbeat_data)
+
+	http.post(query_url, nil, msg, heartbeat_task)
 
 end
 
 
 M.upload = function()
-
-    local data = {
-	    temp   = temp,
-    	hum    = hum,
-    	chipid = chipid or '',
-    	mac    = mac or '',
-	   	time   = tmr.time() or '',
-	}
-
-    wrapper(upload_task, data)
 end
 
 

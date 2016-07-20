@@ -20,17 +20,14 @@ end
 
 M.startTran = function()
 	tmr.alarm(conn_tmrid, conn_interval, 1, function() 
-	local time = tmr.time()
-	if bit.band(time, 10) == 10 then
-		upload.upload()
-	else
+		log('send heartbeat', node.heap())
 		upload.heartbeat()
-	end
 	end)
 end
 
 M.getData = function()
 	tmr.alarm(dht11_tmrid, dht11_interval, 1, function()
+		log('fetch sensor', node.heap())
 		dht11.read(dht11_pin)
 	end)
 end
@@ -49,7 +46,6 @@ M.init = function()
 
 	remote.initwifi(ssid, pwd)
 	remote.conn_callback()
-	sock.initconn()
 	oled.init_oled(sda, scl, sla)
 	oled.boot_page()
 end

@@ -32,7 +32,7 @@ M.send = function(data)
 
 
     conn:send(
-		'POST ' .. query_url .. " HTTP/1.0\r\n" ..
+		'POST ' .. path .. " HTTP/1.0\r\n" ..
 		"Host: localhost\r\n" ..
 		"Accept: */*\r\n" ..
 		"Content-Length: ".. string.len(data) .. 
