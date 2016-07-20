@@ -33,12 +33,15 @@ M.getData = function()
 end
 
 M.mqtt_sub = function()
+	cli.m_init()
+	cli.m_connect()
 end
 
 M.run = function()
 	M.display(true)
 	M.getData()
 	M.startTran()
+	M.mqtt_sub()
 end
 
 M.init = function()

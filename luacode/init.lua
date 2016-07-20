@@ -10,6 +10,7 @@ require("remote")
 require("sock")
 require("upload")
 require("oled")
+require("cli")
 
 require("app")
 
