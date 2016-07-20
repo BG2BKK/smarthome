@@ -11,11 +11,17 @@ if dev then
 	server_port = 8080 
 	server_name = 'localhost'
 	path   = '/smart'
+
+	mqtt_ip = '192.168.2.163'
+	mqtt_port = 1883
 else
 	server_ip   = '45.78.38.250'
 	server_port = 8080 
 	server_name = 'localhost'
 	path   = '/smart'
+
+	mqtt_ip = '45.78.38.250'
+	mqtt_port = 1883
 end
 
 query_url = 'http://'..server_ip..':'..server_port..path

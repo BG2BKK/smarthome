@@ -32,6 +32,9 @@ M.getData = function()
 	end)
 end
 
+M.mqtt_sub = function()
+end
+
 M.run = function()
 	M.display(true)
 	M.getData()
