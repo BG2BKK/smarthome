@@ -2,20 +2,24 @@ local moduleName = ...
 local M = {}
 _G[moduleName] = M
 
+require("upload")
 m_on_connect = function(client)	
     print ("connected")
-	r_sub = client:subscribe(sub_t,0, function(client) print("subscribe success") end)
-	p_pub = client:publish(pub_t,"hello",0,0, function(client) print("sent") end)
-    print(r_sub, '\t', p_pub)
-    print ("pub and sub done")    
+	m_is_connecting = true
 end
 
 m_on_connect_fail = function(client)    
     print("connect to server error")
+	m_is_connecting = false
 end
 
 m_on_offline = function(client) 
     print ("offline") 
+	m_is_connecting = false
+	m_is_subscribing = false
+
+	upload.mqtt_offline()
+
 end
 
 m_dispatch = function(client, topic, data)
@@ -27,6 +31,8 @@ end
 
 m_on_sub = function(client)
 	print("subscribe success") 
+	m_is_subscribing = true
+	upload.mqtt_online()
 end
 
 m_on_sent = function(client) 
@@ -34,15 +40,18 @@ m_on_sent = function(client)
 end
 
 M.m_sub = function()
+	if not checkip() then return end
 	r_sub = m:subscribe(sub_t, 0, m_on_sub)
 end
 
 M.m_pub = function(data)
+	if not checkip() then return end
 	r_pub = m:publish(pub_t, data, 0, 0, m_on_sent)
 end
 
 M.m_connect = function()
-	m:connect("192.168.2.163", 1883, 0, m_on_connect, m_on_connect_fail) 
+	if not checkip() then return end
+	m:connect(mqtt_ip, mqtt_port, 0, m_on_connect, m_on_connect_fail) 
 end
 
 M.m_init = function()
@@ -50,6 +59,10 @@ M.m_init = function()
 	m:lwt(lwt_t, "offline", 0, 0)
 	m:on("offline", m_on_offline)
 	m:on("message", m_dispatch)
+end
+
+M.m_exist = function()
+	return m and true or false
 end
 
 return M

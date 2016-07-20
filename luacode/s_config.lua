@@ -4,7 +4,7 @@ pwd         = 'sh19901222'
 
 uart_debug = 1
 oled_debug = 1
-dev	= 1
+dev	= nil
 
 if dev then
 	server_ip   = '192.168.2.163'
@@ -45,14 +45,12 @@ display = {
 	{ x = 36, y = 48,data = ''		},
 }
 
-hbeat_data = {
-	['type']	= 'heartbeat',
-	['chipid']	= chipid or '',
-	['mac']		= mac or '',
-}
+
 
 clientid = mac .. ':' .. chipid
 lwt_t = '/smart:lwt:' 
 sub_t = '/smart/sub/' .. mac .. ':' .. chipid .. '/#' 
 pub_t = '/smart/pub/' .. mac .. ':' .. chipid
+m_is_connecting = false
+m_is_subscribing = false
 

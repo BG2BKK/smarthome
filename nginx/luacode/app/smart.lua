@@ -10,8 +10,11 @@ local proc = function(postdata)
 	local data = cjson.decode(postdata)
 
 	local resp = {}
+	resp.msg = 'got ' 
 
 	if data then
+
+		resp.msg = 'got ' .. data.mac or 'unknow device'
 		local dev_id = data.chipid
 		local dev_mac = data.mac
 		local key = table.concat({dev_mac, dev_id, 'info'}, ':')

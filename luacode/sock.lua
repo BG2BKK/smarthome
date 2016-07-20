@@ -7,10 +7,7 @@ end
 
 M.send = function(data)
 
-    if not ip then
-        http_log = "Network Unavaliable"
-		return log(http_log) -- nil
-    end
+	if not checkip() then return end
 
     conn=net.createConnection(net.TCP, 0) 
     conn:connect(server_port, server_ip) 

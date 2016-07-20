@@ -1,6 +1,6 @@
 
 -- timer --
-wifi_interval   = 1000  -- ms
+wifi_interval   = 500  -- ms
 wifi_tmrid      = 0
 
 dht11_interval  = 5000  -- ms
@@ -8,6 +8,9 @@ dht11_tmrid     = 1
 
 oled_interval  = 1000  -- ms
 oled_tmrid     = 4
+
+mqtt_interval  = 1000  -- ms
+mqtt_tmrid     = 2
 
 conn_interval   = 30000 -- ms 
 conn_tmrid      = 6
