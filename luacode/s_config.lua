@@ -31,21 +31,21 @@ http_log = ''
 user_input = ''
 
 d_ip, d_temp, d_hum, d_upload = 2, 4, 6, 7
-d_input = 9
+d_input, d_heap = 9, 11
 
 display = {
 	{ x = 0, y = 0,	data = 'ip: '	},
 	{ x = 30,y = 0, data = ''    	},
 	{ x = 0, y = 12,data = 'Temp: '	},
 	{ x = 30,y = 12,data = ''		},
-	{ x = 0, y = 24,data = 'Hum: '	},
-	{ x = 30,y = 24,data = ''		},
+	{ x = 60,y = 12,data = 'Hum: '	},
+	{ x = 90,y = 12,data = ''		},
 	{ x = 0, y = 36,data = ''		},
 	{ x = 0, y = 48,data = 'input: '},
 	{ x = 36, y = 48,data = ''		},
+	{ x = 0, y = 24,data = 'node:'	},
+	{ x = 30, y = 24,data = ''	},
 }
-
-
 
 clientid = mac .. ':' .. chipid
 lwt_t = '/smart:lwt:' 

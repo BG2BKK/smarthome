@@ -11,6 +11,7 @@ M.display = function(switch)
 			display[d_hum].data = hum or ''
 			display[d_upload].data = http_log or ''
 			display[d_input].data = user_input or ''
+			display[d_heap].data = node.heap() or ''
 			oled.drawStrs(display)		
 		end)
 	elseif switch == false then
