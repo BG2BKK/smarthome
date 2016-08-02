@@ -33,7 +33,7 @@ M.drawStrs = function(strs)
     disp:firstPage()
     repeat 
 		for _, dat in pairs(strs) do
-            disp:drawStr(dat.x, dat.y, dat.data)
+            disp:drawStr(dat[1], dat[2], dat[3])
 		end
     until disp:nextPage() == false
 end

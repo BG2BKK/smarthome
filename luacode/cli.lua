@@ -23,9 +23,11 @@ m_on_offline = function(client)
 end
 
 m_dispatch = function(client, topic, data)
+	log('subscribe')
   print(clientid, topic .. ":")
   if data ~= nil then
     print(data)
+	upload.mqtt_msg(clientid, topic, data)
   end
 end
 
@@ -51,7 +53,7 @@ end
 
 M.m_connect = function()
 	if not checkip() then return end
-	m:connect(mqtt_ip, mqtt_port, 0, m_on_connect, m_on_connect_fail) 
+	m:connect(m_ip, m_port, 0, m_on_connect, m_on_connect_fail) 
 end
 
 M.m_init = function()

@@ -10,7 +10,7 @@ M.send = function(data)
 	if not checkip() then return end
 
     conn=net.createConnection(net.TCP, 0) 
-    conn:connect(server_port, server_ip) 
+    conn:connect(s_port, s_ip) 
 
     conn:on("sent",function(conn)
 		http_log = 'Closing connection'

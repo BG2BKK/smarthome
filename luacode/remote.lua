@@ -14,7 +14,7 @@ end
 
 M.conn_callback = function()
 
-    tmr.alarm(wifi_tmrid, wifi_interval, 1, function()
+    tmr.alarm(wifi_tid, wifi_int, 1, function()
         cli_ip = wifi.sta.getip()
         if not cli_ip then
             log("IP unavaiable, Waiting...")

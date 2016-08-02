@@ -1,23 +1,19 @@
 
 -- timer --
-wifi_interval   = 500  -- ms
-wifi_tmrid      = 0
+wifi_int	= 500  -- ms
+wifi_tid	= 0
 
-dht11_interval  = 5000  -- ms
-dht11_tmrid     = 1
+dht11_int  = 5000  -- ms
+dht11_tid     = 1
 
-oled_interval  = 1000  -- ms
-oled_tmrid     = 4
+oled_int  = 1000  -- ms
+oled_tid     = 4
 
-mqtt_interval  = 1000  -- ms
-mqtt_tmrid     = 2
+mqtt_int  = 30000  -- ms
+mqtt_tid     = 2
 
-conn_interval   = 30000 -- ms 
-conn_tmrid      = 6
-
-pm25_on_interval   = 5000
-pm25_off_interval   = 20000
-pm25_tmrid      = 5
+conn_int   = 30000 -- ms 
+conn_tid      = 6
 
 -- port --
 dht11_pin = 2

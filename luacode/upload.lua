@@ -3,7 +3,6 @@ local M = {}
 _G[moduleName] = M
 
 require("utils")
-require("sock")
 require("http")
 
 local upload_task = function(code, data)
@@ -32,10 +31,19 @@ M.heartbeat = function()
 		msgtype	= 'heartbeat',
 		chipid	= chipid or '',
 		mac		= mac or '',
-		time	= tmr.time() or ''
+		time	= tmr.time() or '',
+		heap	= node.heap() or '',
+		temp	= temp,
+		hum		= hum
 	}
 
 	local msg = cjson.encode(hbeat_data)
+
+--	local msg = 'msgtype=' .. 'heartbeat' ..
+--				'&chipid=' .. chipid or '' ..
+--				'&mac=' .. mac or ''..
+--				'&time=' .. tmr.time() or ''..
+--				'&heap=' .. node.heap() or ''
 
 	http.post(query_url, nil, msg, heartbeat_task)
 
@@ -77,5 +85,24 @@ M.mqtt_online = function()
 
 	http.post(query_url, nil, msg, mqtt_online_task)
 end
+
+M.mqtt_msg = function(clientid, topic, data)
+	if not checkip() then return end
+
+	local mqtt_data = {
+		msgtype	= 'mqtt_msg',
+		chipid	= chipid ,
+		mac		= mac ,
+		time	= tmr.time() ,
+		id		= clientid ,
+		topic	= topic ,
+		msg		= data ,
+	}
+
+	local msg = cjson.encode(mqtt_data)
+
+	http.post(query_url, nil, msg)
+end
+
 
 return M

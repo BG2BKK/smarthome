@@ -7,7 +7,6 @@ require("utils")
 
 require("dht11")
 require("remote")
-require("sock")
 require("upload")
 require("oled")
 require("cli")
